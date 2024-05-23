@@ -1,18 +1,28 @@
 import React, { useState } from 'react'
 import './index.css'
+import { evaluate } from 'mathjs';
 
 const Calculator = () => {
-  const [calcDisplay, setCalcDisplay] = useState('0');
+  const [calcDisplay, setCalcDisplay] = useState('0')
+
+  const handleEquals = () => {
+    const result = evaluate(calcDisplay)
+    setCalcDisplay(String(result))
+  }
+
+  const handleClear = () => {
+    setCalcDisplay('0')
+  }
 
   const handleKeyPress = (key) => {
-    setCalcDisplay((prevDisplay) => prevDisplay + key);
-  };
+    setCalcDisplay((prevDisplay) => prevDisplay + key)
+  }
 
   return (
     <div className="calculator">
       <div id="display">{calcDisplay}</div>
       <div className="button-grid">
-        <button id="clear" /* onClick={handleClear} */>AC</button>
+        <button id="clear" onClick={handleClear}>AC</button>
         <button className="empty"></button>
         <button className="empty"></button>
         <button id="divide" className="operator" onClick={() => handleKeyPress('/')}>/</button>
@@ -30,7 +40,7 @@ const Calculator = () => {
         <button id="add" className="operator" onClick={() => handleKeyPress('+')}>+</button>
         <button id="zero" style={{ gridColumn: 'span 2' }} onClick={() => handleKeyPress('0')}>0</button>
         <button id="decimal" onClick={() => handleKeyPress('.')}>.</button>
-        <button id="equals" /* onClick={handleEquals} */>=</button>
+        <button id="equals" onClick={handleEquals}>=</button>
       </div>
     </div>
   )
